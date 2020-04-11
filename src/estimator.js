@@ -29,7 +29,7 @@ const periodNormaliser = (currentlyInfected, days, data) => {
     return currentlyInfected * (2 ** decimalDiscard);
 };
 
-const covid19ImpactEstimator = (data) => data {
+const covid19ImpactEstimator = (data) => data;
     const days = data.timeToElapse;
     const currentlyInfected = data.reportedCases*10;
 
@@ -72,6 +72,5 @@ const covid19ImpactEstimator = (data) => data {
     //export default covid19ImpactEstimator; added module.export due to a module error
     output.data = data;
     return output;
-};
 module.exports = covid19ImpactEstimator;
 console.log(output)
