@@ -1,4 +1,4 @@
-const input_data = {
+const data = {
 	region: {
 	name: "Africa",
 	avgAge: 19.7,
@@ -12,32 +12,48 @@ const input_data = {
 	totalHospitalBeds: 1380614
 }
 
-const covid19ImpactEstimator = (data) => data;
-let output = {
-	data: {},
-	impact: {},
-	severeImpact: {}
+let output = {data: {},impact: {},severeImpact: {}};
+
+const periodNormaliser = (currentlyInfected, days, data) => {
+	let normalDays;
+	if (data.periodType == 'days'){
+		normalDays = days;
+	}
+	else if (data.periodType == 'weeks'){
+		normalDays = days*7;
+	}
+	else {
+		normalDays = days*30;
+	}
+	let decimalDiscard = Number(normalDays/3) | 0;
+	return currentlyInfected * (2 ** decimalDiscard);
 };
-//output.data = input_data;
-var currentlyInfected = input_data.reportedCases*10;
-output.data='currentlyInfected'
-output.impact = currentlyInfected;
-console.log(output)
 
-var severelyInfected = input_data.reportedCases*50;
-output.data='severelyInfected: '
-output.severeImpact= severelyInfected;
-console.log(output)
+const covid19ImpactEstimator = (data) => data;
+const days = data.timeToElapse;
+const currentlyInfected = data.reportedCases*10;
+output.data=data.region.name
+output.impact.currentlyInfected = currentlyInfected;
+output.severeImpact.currentlyInfected = data.reportedCases*50;
 
-var infectionsByRequestedTime = input_data.reportedCases*10*(2**10);
-output.data='infectionsByRequestedTime'
-output.impact = infectionsByRequestedTime;
-console.log(output)
+const infectionsByRequestedTime = currentlyInfected;
+output.impact.infectionsByRequestedTime = periodNormaliser(currentlyInfected,days,data);
+output.severeImpact.infectionsByRequestedTime = periodNormaliser((currentlyInfected)*50,days,data);
 
-var infectionsByRequestedTime = input_data.reportedCases*50*(2**10);
-output.data='severeInfectionsByRequestedTime: '
-output.severeImpact = infectionsByRequestedTime;
-console.log(output)
+/******************CH_2************************/
+const severeCasesByRequestedTime = currentlyInfected;
+let severeCases = periodNormaliser(currentlyInfected,days,data)*(15/100);
+output.impact.severeCasesByRequestedTime = severeCases;
+output.severeImpact.severeCasesByRequestedTime = severeCases*50;
+
+const hospitalBedsByRequestedTime = severeCasesByRequestedTime;
+let bedsTotal = data.totalHospitalBeds;
+let bedsAvailable = ((35/100) - bedsTotal)| 0;
+output.impact.hospitalBedsByRequestedTime = severeCases - bedsAvailable;
+output.severeImpact.hospitalBedsByRequestedTime = (severeCases*50) - bedsAvailable;
+
+/****************** CH_3 ************************/
 
 //export default covid19ImpactEstimator; added module.export due to a module error
 module.exports = covid19ImpactEstimator;
+console.log(output)
