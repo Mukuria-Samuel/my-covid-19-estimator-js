@@ -71,6 +71,6 @@ output.severeImpact.dollarsInFlight = (((infectionByTime*50) * 0.65 * 1.5) / 30)
 
 //export default covid19ImpactEstimator; added module.export due to a module error
 output.data = data;
-return output;
+    return output;
 module.exports = covid19ImpactEstimator;
 console.log(output)
