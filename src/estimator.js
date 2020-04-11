@@ -71,6 +71,6 @@ const covid19ImpactEstimator = (data) => data;
 
     //export default covid19ImpactEstimator; added module.export due to a module error
     output.data = data;
-    return output;
+    //return output;
 module.exports = covid19ImpactEstimator;
-console.log(output)
+//console.log(output)
