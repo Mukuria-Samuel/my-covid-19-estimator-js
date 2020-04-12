@@ -1,19 +1,18 @@
-var data = {
+let data = {
   region: { 
     name:'Africa', 
     avgAge:19.7, 
-    avgDailyIncomeInUSD:5,
+    avgDailyIncomeInUSD:5, 
     avgDailyIncomePopulation:0.71 
-  }, 
-  periodType:'days',
-  timeToElapse:58,
-  reportedCases:674,
-  population:66622705,
-  totalHospitalBeds:1380614
+  },
+  periodType:'days', 
+  timeToElapse:58, 
+  reportedCases:674, 
+  population:66622705, 
+  totalHospitalBeds:1380614 
 };
 
 const output = { data: {}, impact: {}, severeImpact: {} };
-
 const periodNormaliser = (currentlyInfected, days, data) => {
   let normalDays;
   if (data.periodType === 'days') { 
@@ -29,16 +28,15 @@ const periodNormaliser = (currentlyInfected, days, data) => {
   return currentlyInfected * (2 ** decimalDiscard);
 };
 
-const covid19ImpactEstimator = (data) => data; 
-  const days = data.timeToElapse; 
-  const currentlyInfected = data.reportedCases*10; 
+const covid19ImpactEstimator = (data) => data;
+  const days = data.timeToElapse;
+  const currentlyInfected = data.reportedCases*10;
   output.impact.currentlyInfected = currentlyInfected;
   output.severeImpact.currentlyInfected = data.reportedCases*50;
 
   const infectionsByRequestedTime = currentlyInfected;
   output.impact.infectionsByRequestedTime = periodNormaliser(currentlyInfected,days,data);
   output.severeImpact.infectionsByRequestedTime = periodNormaliser((currentlyInfected)*50,days,data);
-
   /****************** CH_2 ************************/
   const severeCasesByRequestedTime = currentlyInfected;
   let severeCases = periodNormaliser(currentlyInfected,days,data)*(15/100);
@@ -50,7 +48,7 @@ const covid19ImpactEstimator = (data) => data;
   let bedsAvailable = ((35/100) - bedsTotal)| 0;
   output.impact.hospitalBedsByRequestedTime = severeCases - bedsAvailable;
   output.severeImpact.hospitalBedsByRequestedTime = (severeCases*50) - bedsAvailable;
-
+  
   /****************** CH_3 ************************/
 
   const casesForICUByRequestedTime = infectionsByRequestedTime;
