@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Covid-19-Estimator</title>
+	<meta charset="UTF-8" />
+	<script src="layer.js"></script>
+</head>
+<body>
+	<h2>Covid-19-Estimator-App</h2>
+	<form id="data">
+	<div>
+		<label for="name">Region</label>
+		<input type="text" id="name"><br>
+
+		<label>avgAge</label>
+		<input type="text" id="avgAge"><br>
+
+		<label for="avgDailyIncomeInUSD">avgDailyIncomeInUSD</label>
+		<input type="text" id="avgIncomeInUSD"><br>
+
+		<label for="avgDailyIncomePopulation">avgDailyIncomePopulation</label>
+		<input type="text" id="avgIncomePopulation"><br>
+		<div>
+			<label>Select period type :</label>
+			<input type="radio" id="period_days"name="period" value="days">
+	        <label for="periodType">Days</label>
+
+	        <input type="radio" id="period_weeks"name="period" value="weeks">
+	        <label for="period_days">Weeks</label>
+
+	        <input type="radio" id="period_months"name="period" value="months">
+	        <label for="periodType">Months</label>
+    	</div>
+
+
+		<label for="timeToElapse">No.of d/w/m</label>
+		<input type="text" id="timeToElapse"><br>
+
+		<label>reportedCases</label>
+		<input type="text" id="rptedCases"><br>
+
+		<label for="population">population</label>
+		<input type="text" id="population"><br>
+
+		<label>totalHospitalBeds</label>
+		<input type="text" id="tHospitalBeds"><br>
+		<button type="button" id="btn">Input Data</button>
+	</div>
+	<hr>
+	<div id="msg">
+		<pre></pre>
+	</div>
+	<hr>
+	<div id="id01">
+		<pre></pre>
+	</div>
+
+	</form>
+
+	<hr>
+</body>
+</html>
